@@ -40,5 +40,9 @@ sep = ( A & C ) | (_A & B & C )
 sep = ( A & _B & C ) | ( B & C ) 
 sep = ( A & C ) | ( B & C ) 
 
+
+sep = (A & _B & C) | (A & _B & _C) | (_A & B & C) | (_A & B & _C)
+sep = (A & _B) | (_A & _B)
+sep = (C & _B) | (_C & _B)
 res_in , res_out, res_y = pySIVIA(X0,sep,0.5,color_out="",color_in="k[blue]")
 

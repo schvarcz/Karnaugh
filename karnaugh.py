@@ -78,4 +78,22 @@ b = IntervalVector(2)
 b[0], b[1] = X0[0], X0[1]
 C.contract(b)
 x,y = b[0], b[1]
+print(b)
 vibes.drawBox(x.lb(), x.ub(), y.lb(), y.ub(),"green")
+
+
+# C = (contractors[1]&contractors[2])
+# C.contract(b)
+# vibes.drawBox(x.lb(), x.ub(), y.lb(), y.ub(),"red")
+# C1.contract(b)
+# x,y = b[0], b[1]
+# vibes.drawBox(x.lb(), x.ub(), y.lb(), y.ub(),"yellow")
+# C2.contract(b)
+# x,y = b[0], b[1]
+# vibes.drawBox(x.lb(), x.ub(), y.lb(), y.ub(),"green")
+
+# res_in , res_out, res_y = pySIVIA(X0,C,0.5,color_out="",color_in="k[blue]")
+
+# res_in , res_out, res_y = pySIVIA(X0,(seps[0]|seps[1])&seps[2],0.5,color_out="",color_in="k[blue]")
+# res_in , res_out, res_y = pySIVIA(X0,seps[0]|seps[1]&seps[2],0.5,color_out="",color_in="k[green]")
+# pySIVIA(X0,C,0.5)
