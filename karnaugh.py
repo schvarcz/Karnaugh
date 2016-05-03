@@ -146,7 +146,7 @@ def test3():
 def test4():
 	vibes.beginDrawing()
 	vibes.newFigure("Karnaugh4-1")
-	vibes.setFigureProperties({"x":100, "y": 100, "width": 800, "height": 800})
+	vibes.setFigureProperties({"x":100, "y": 100, "width": 1600, "height": 800})
 
 	X0 = IntervalVector([[-40,40], [-40,40]])
 
@@ -181,13 +181,15 @@ def test4():
 
 
 	#Any combination of 2 or 3 groupsX
-	X = ( _A & C & D ) | ( _B & C & D ) | ( A & _B & C ) | ( A & C & _D ) | ( A & B & _D ) | ( A & B & _C ) | ( B & _C & D ) | ( _A & B & D )
+	# X = ( _A & C & D ) | ( _B & C & D ) | ( A & _B & C ) | ( A & C & _D ) | ( A & B & _D ) | ( A & B & _C ) | ( B & _C & D ) | ( _A & B & D )
 
-	X = ( A & C & D ) | ( A & B & C ) | ( A & B & _C ) | ( A & _B & _C & _D ) | ( _A & _C & D ) | ( _A & B & _C )
-	_X = ( A & _B & C & _D ) | ( A & _B & _C & D ) | ( _A & C & D ) | ( _A & C & D ) | ( _A & B & C ) | ( _A & C & _D ) | ( _A & _B &_D )
+	# X = ( A & C & D ) | ( A & B & C ) | ( A & B & _C ) | ( A & _B & _C & _D ) | ( _A & _C & D ) | ( _A & B & _C )
+	# _X = ( A & _B & C & _D ) | ( A & _B & _C & D ) | ( _A & C & D ) | ( _A & C & D ) | ( _A & B & C ) | ( _A & C & _D ) | ( _A & _B &_D )
 
 	X = ( A & _B ) | ( _A & B ) | ( A & B )
 	_X = ( _A & _B )
+
+	X = ( A & _B ) | ( A & B )
 
 	pySIVIA(X0,X,0.5,color_out="k[]",color_in="k[#818181]",color_maybe="k[yellow]")
 	# pySIVIA(X0,X,0.5,color_out="k[]",color_in="k[#818181]",color_maybe="white[white]")
@@ -249,24 +251,28 @@ def test6():
 	X2 = ( _A & C ) | ( _A & _C )
 	_X2 = ( A | _C ) & ( A | C )
 
-	X3 =  ( _A & C ) | ( _A & _C )
+	X3 =  _A & ( C | _C )
 	_X3 = A | ( C & _C )
 
 	#Drawing
 	vibes.beginDrawing()
 
 	vibes.newFigure("Karnaugh6-1")
-	vibes.setFigureProperties({"x":100, "y": 100, "width": 800, "height": 800})
+	vibes.setFigureProperties({"x":100, "y": 100, "width": 800, "height": 400})
 	SIVIA_ctc(X0,X1,_X1,0.1,color_out="k[blue]",color_in="k[red]",color_maybe="k[yellow]")
 
 	vibes.newFigure("Karnaugh6-2")
-	vibes.setFigureProperties({"x":100, "y": 100, "width": 800, "height": 800})
+	vibes.setFigureProperties({"x":1000, "y": 100, "width": 800, "height": 400})
 	SIVIA_ctc(X0,X2,_X2,0.1,color_out="k[blue]",color_in="k[red]",color_maybe="k[yellow]")
 	
 	vibes.newFigure("Karnaugh6-3")
-	vibes.setFigureProperties({"x":100, "y": 100, "width": 800, "height": 800})
-	SIVIA_ctc(X0,X3,_X3,0.1,color_out="k[blue]",color_in="k[red]",color_maybe="k[yellow]")
+	vibes.setFigureProperties({"x":100, "y": 600, "width": 800, "height": 400})
+	SIVIA_ctc(X0,X1,_X2,0.1,color_out="k[blue]",color_in="k[red]",color_maybe="k[yellow]")
+
+	vibes.newFigure("Karnaugh6-4")
+	vibes.setFigureProperties({"x":1000, "y": 600, "width": 800, "height": 400})
+	SIVIA_ctc(X0,_X1,_X2,0.1,color_out="k[blue]",color_in="k[red]",color_maybe="k[yellow]")
 
 
 if __name__ == "__main__":
-	test6()
+	test4()
