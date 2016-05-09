@@ -248,11 +248,14 @@ def test6():
 	X1 = ( A & B ) | ( A & _B )
 	_X1 = ( _A | _B ) & ( _A | B )
 
-	X2 = ( _A & C ) | ( _A & _C )
-	_X2 = ( A | _C ) & ( A | C )
+	X2 = ( A | _C ) & ( A | C )
+	_X2 = ( _A & C ) | ( _A & _C )
 
-	X3 =  _A & ( C | _C )
+	X3 =  _A | ( B & _B )
 	_X3 = A | ( C & _C )
+
+	X5 = A
+	_X5 = _A
 
 	#Drawing
 	vibes.beginDrawing()
@@ -276,6 +279,43 @@ def test6():
 	vibes.newFigure("Karnaugh6-5")
 	vibes.setFigureProperties({"x":550, "y": 350, "width": 800, "height": 400})
 	SIVIA_ctc(X0,X5,_X5,0.1,color_out="k[blue]",color_in="k[red]",color_maybe="k[yellow]")
+
+
+def test7():
+	""" A complete example of fake boundaring using separators and three sets """
+	X0 = IntervalVector([[-40,40], [-40,40]])
+
+	lands = [[2,2,10],[15,2,10],[8,-5,10]]
+	conts, seps = ctcsAndSeps(lands)
+
+	A, _A, B, _B, C, _C = seps
+
+	X1 = ( A & B ) | ( A & _B )
+
+	X2 = ( _A & C ) | ( _A & _C )
+
+	X3 = ( A & B ) | ( A & _B ) | ( C & _C )
+
+	X4 =  A
+
+	#Drawing
+	vibes.beginDrawing()
+
+	vibes.newFigure("Karnaugh7-1")
+	vibes.setFigureProperties({"x":100, "y": 100, "width": 800, "height": 400})
+	pySIVIA(X0,X1,0.5,color_out="k[blue]",color_in="k[red]",color_maybe="k[yellow]")
+
+	vibes.newFigure("Karnaugh7-2")
+	vibes.setFigureProperties({"x":1000, "y": 100, "width": 800, "height": 400})
+	pySIVIA(X0,X2,0.5,color_out="k[blue]",color_in="k[red]",color_maybe="k[yellow]")
+
+	vibes.newFigure("Karnaugh7-3")
+	vibes.setFigureProperties({"x":100, "y": 600, "width": 800, "height": 400})
+	pySIVIA(X0,X3,0.5,color_out="k[blue]",color_in="k[red]",color_maybe="k[yellow]")
+
+	vibes.newFigure("Karnaugh7-4")
+	vibes.setFigureProperties({"x":1000, "y": 600, "width": 800, "height": 400})
+	pySIVIA(X0,X4,0.5,color_out="k[blue]",color_in="k[red]",color_maybe="k[yellow]")
 
 
 if __name__ == "__main__":
