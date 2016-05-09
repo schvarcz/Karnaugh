@@ -125,11 +125,14 @@ def SIVIA_msep(X0, sep, epsilon, color_in='k[b]', color_out='k[]', color_maybe='
 
 	return (res_out, res_y)
 
+
 def ctcsAndSeps(lands):
-	conts, seps = [], []
+	return ctcs(lands), seps(lands)
+
+
+def ctcs(lands):
+	conts = []
 	for x0,y0,r in lands:
-		# r = Interval(r-2,r+2)
-		print("sqrt((x-{0})^2+(y-{1})^2) < {2}".format(x0,y0,r))
 		f = Function("x","y","sqrt((x-{0})^2+(y-{1})^2)".format(x0,y0))
 
 		#Contractor
@@ -139,10 +142,18 @@ def ctcsAndSeps(lands):
 		C = CtcFwdBwd(f,Interval(r,float("inf")))
 		conts.append(C)
 
+	return conts
+
+
+def seps(lands):
+	seps = []
+	for x0,y0,r in lands:
+		f = Function("x","y","sqrt((x-{0})^2+(y-{1})^2)".format(x0,y0))
+
 		#Separator
 		sep = SepFwdBwd(f,Interval(-1,r))
 		# res_in , res_out, res_y = pySIVIA(X0,sep,1,color_out="",color_in="k[#A9A9A9]",color_maybe="k[white]")
 		seps.append(sep)
 		sep = SepFwdBwd(f,Interval(r,float("inf")))
 		seps.append(sep)
-	return conts, seps
+	return seps
