@@ -318,5 +318,50 @@ def test7():
 	pySIVIA(X0,X4,0.5,color_out="k[blue]",color_in="k[red]",color_maybe="k[yellow]")
 
 
+def test8():
+	""" A complete example of fake boundaring using contractors and three sets """
+	X0 = IntervalVector([[-40,40], [-40,40]])
+
+	lands = [[2,2,10],[15,2,10],[8,-5,10]]
+	conts, seps = ctcsAndSeps(lands)
+
+	A, _A, B, _B, C, _C = conts
+
+	X1 = ( A & B ) | ( A & _B ) | ( _A & B)
+	_X1 = ( _A | _B ) & ( _A | B ) & ( A | _B )
+
+	X2 = ( A | B | _C ) & ( A | B | C )
+	_X2 = ( _A & _B & C ) | ( _A & _B & _C )
+
+	X3 =  ( A | B | _C ) & ( A | B | C )
+	_X3 = ( _A | _B ) & ( _A | B ) & ( A | _B )
+
+	X5 = A | B
+	_X5 = _A & _B
+
+	#Drawing
+	vibes.beginDrawing()
+
+	vibes.newFigure("Karnaugh8-1")
+	vibes.setFigureProperties({"x":100, "y": 100, "width": 800, "height": 400})
+	SIVIA_ctc(X0,X1,_X1,0.1,color_out="k[gray]",color_in="k[#6F6F6F]",color_maybe="white[white]")
+
+	vibes.newFigure("Karnaugh8-2")
+	vibes.setFigureProperties({"x":1000, "y": 100, "width": 800, "height": 400})
+	SIVIA_ctc(X0,_X2,X2,0.1,color_out="k[gray]",color_in="k[#6F6F6F]",color_maybe="white[white]")
+	
+	vibes.newFigure("Karnaugh8-3")
+	vibes.setFigureProperties({"x":100, "y": 600, "width": 800, "height": 400})
+	SIVIA_ctc(X0,X3,_X3,0.1,color_out="k[gray]",color_in="k[#6F6F6F]",color_maybe="white[white]")
+
+	vibes.newFigure("Karnaugh8-4")
+	vibes.setFigureProperties({"x":1000, "y": 600, "width": 800, "height": 400})
+	SIVIA_ctc(X0,X2,_X1,0.1,color_out="k[gray]",color_in="k[#6F6F6F]",color_maybe="white[white]")
+
+	vibes.newFigure("Karnaugh8-5")
+	vibes.setFigureProperties({"x":550, "y": 350, "width": 800, "height": 400})
+	SIVIA_ctc(X0,X5,_X5,0.1,color_out="k[gray]",color_in="k[#6F6F6F]",color_maybe="white[white]")
+
+
 if __name__ == "__main__":
-	test6()
+	test8()
